@@ -16,15 +16,15 @@ class VaccinationDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityVaccinationDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val countryInfo = intent.getParcelableExtra<Vaccination>(EXTRA_COUNTRY)
+        val countryInfo = intent.getParcelableExtra<VaccinationInfo>(EXTRA_COUNTRY)
 
-        //put each field of the Hero object into the respecitve widgets
+        //put each field of the Vaccination object into the respecitve widgets
         binding.textViewVaccinationdetailCountry.text = countryInfo?.country
-        binding.textViewVaccinationdetailTimeline.text = countryInfo?.timeline
+       // binding.textViewVaccinationdetailTimeline.text = countryInfo?.timeline
 
-        /*binding.textViewDetailLatestVax.text =
-            countryInfo?.timeline?.toList()?joinToString{
+        binding.textViewVaccinationdetailTimeline.text =
+            countryInfo?.timeline?.toList()?.joinToString{
                 it.first + ": " + it.second + "\n"
-         }?.replace(", ", "") */
+         }?.replace(", ", "")
     }
 }

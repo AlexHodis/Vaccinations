@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 
-class VaccinationAdapter(var dataSet: List<Vaccination>) :
+class VaccinationAdapter(var dataSet: List<VaccinationInfo>) :
     RecyclerView.Adapter<VaccinationAdapter.ViewHolder>() {
 
     /**
@@ -17,15 +17,13 @@ class VaccinationAdapter(var dataSet: List<Vaccination>) :
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewCountry: TextView
-        val textViewDate : TextView
         val textViewTimeline : TextView
         val layout: ConstraintLayout
 
         init {
             // Define click listener for the ViewHolder's View.
-            textViewCountry = view.findViewById(R.id.textView_vaccinationdetail_country)
-            textViewDate = view.findViewById(R.id.textView_vaccinationdetail_timeline)
-            textViewTimeline = view.findViewById(R.id.textView_vaccinationdetail_vaccinations)
+            textViewCountry = view.findViewById(R.id.textView_vaccinationItem_country)
+            textViewTimeline = view.findViewById(R.id.textView_vaccinationItem_timeline)
             layout = view.findViewById(R.id.layout_vaccinationItem)
 
         }
@@ -46,16 +44,14 @@ class VaccinationAdapter(var dataSet: List<Vaccination>) :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         val vaccination = dataSet[position]
-        viewHolder.textViewCountry.text = vaccination.country.toString()
-        viewHolder.textViewDate.text = vaccination.timeline
+        viewHolder.textViewCountry.text = vaccination.country
+        viewHolder.textViewTimeline.text = vaccination.timeline.get(vaccination.timeline.lastKey()).toString()
         viewHolder.layout.setOnClickListener {
-            //Toast.makeText(it.context, "Hi, you clicked on ${hero.name}", Toast.LENGTH_SHORT).show()
-            //get the context from something in the viewHolder
             val context = viewHolder.layout.context
-            val heroDetailIntent = Intent(context, VaccinationDetailActivity::class.java).apply {
+            val vaccinationDetailIntent = Intent(context, VaccinationDetailActivity::class.java).apply {
                 putExtra(VaccinationDetailActivity.EXTRA_COUNTRY, vaccination)
             }
-            context.startActivity(heroDetailIntent)
+            context.startActivity(vaccinationDetailIntent)
         }
     }
 
